@@ -2,7 +2,7 @@
 
 # 🧱 Flask MVC Internship App Template
 
-A structured Flask application following the **Model-View-Controller (MVC)** architecture. It supports **employers**, **staff**, and **students** with role-specific CLI commands and is ideal for managing internship positions and applications.
+A structured Flask application following the **Model-View-Controller (MVC)** architecture. It supports **employers**, **staff**, and **students** with role-specific CLI commands
 
 🔗 [Demo](https://dcit-flaskmvc.herokuapp.com/) | 📫 [Postman Collection](https://documenter.getpostman.com/view/583570/2s83zcTnEJ)
 
