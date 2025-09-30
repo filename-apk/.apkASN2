@@ -23,8 +23,7 @@ class Employer(User):
         self.name = name
         self.company = company
         self.position = position
-
-    # More Functionality To Add
+    
     def createInternPosition(self, title, duration, stipend, amount, description):
         newPosition = InternPosition(employer=self, title=title, duration=duration, stipend=stipend, amount=amount, description=description)
         db.session.add(newPosition)
