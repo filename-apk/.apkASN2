@@ -3,10 +3,26 @@
 # Flask MVC Template
 A template for flask applications structured in the Model View Controller pattern [Demo](https://dcit-flaskmvc.herokuapp.com/). [Postman Collection](https://documenter.getpostman.com/view/583570/2s83zcTnEJ)
 
-
 # Dependencies
 * Python3/pip3
 * Packages listed in requirements.txt
+
+The venv folder contains a virtual environment of Python 3.9.10 with all the requires packages as listed in requirements.txt preinstalled. This was necessary to do on my machine running Fedora
+
+However, for others this very well might be unecessary, so the venv folder can be deleted and be sure to adjust VS Code's selected interpreter to your machine's installation of Python 3.9.10, as the configuration files for this project points to venv for the default interpreter
+
+Changes can be made via ```CTRL + SHIFT + P```, followed by typing Select Interpreter in the search bar and choosing your installation of Python 3.9.10 when prompted
+
+Or manually in .vscode/settings.json:
+
+```
+{
+    "python.defaultInterpreterPath": "venv/bin/python",
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python-envs.pythonProjects": []
+}
+```
 
 # Installing Dependencies
 ```bash
