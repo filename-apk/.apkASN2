@@ -23,6 +23,7 @@ Changes can be made via ``CTRL + SHIFT + P``, followed by typing ``Select Interp
 ```
 
 # Installing Dependencies
+
 ```bash
 $ pip install -r requirements.txt
 ```
@@ -33,24 +34,63 @@ $ pip install -r requirements.txt
 flask create-employer <username> <password>
 ```
 
+Create an employer user account
+
 ```bash
 flask create-student <username> <password>
 ```
 
+Create a student user account
+
 ```bash
 flask create-staff <username> <password>
 ```
+
+Create a staff user account
+
+# Employer Commands
+
+```bash
+$ flask create-position
+```
+Enables and a selected employer to open an intern position
+
+```bash
+$ flask review-applicants
+```
+Enables a selected employer to see the shortlisted individuals and their decision status for all their opened positions
+
+```bash
+$ flask make-decision
+```
+Enables a selected employer to make a decision to approve a shortlisted student for the intern position or reject them
+
+# Staff Commands
+
+```bash
+$ flask shortlist-student
+```
+Enables a selected staff memeber to shortlist a chosen student for an open intern position
+
+# Student Commands
+
+```bash
+$ flask shortlisted-positions
+```
+Enables a selected student to view all the positions they have been shortlisted for as well as the decision made regarding their application (Pending, Approved, Rejected)
 
 # Database Initialization Commands
 
 ```bash
 $ flask init
 ```
+
 Initialize database without data
 
 ```bash
 $ flask init-default
 ```
+
 Initialize database with a default dataset. This sets up:
 
 Employers: Bill Gates, Jeff Bezos, Vince McMahon
