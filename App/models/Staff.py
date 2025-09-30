@@ -1,5 +1,6 @@
 from App.database import db
 from .User import User
+from .ShortlistEntry import ShortlistEntry
 
 class Staff(User):
     __tablename__ = 'staff'
@@ -8,7 +9,7 @@ class Staff(User):
     name = db.Column(db.String(100), nullable=False)
     faculty = db.Column(db.String(100), nullable=False)
 
-    shortlists = db.relationship('Shortlist', back_populates='staff', lazy=True, cascade="all, delete-orphan")
+    shortlists = db.relationship('ShortlistEntry', back_populates='staff', lazy=True, cascade="all, delete-orphan")
 
     __mapper_args__ = {
         'polymorphic_identity': 'staff',
@@ -18,3 +19,10 @@ class Staff(User):
         super().__init__(username, password)
         self.name = name
         self.faculty = faculty
+    
+    # More Functionality To Add
+    def shortlistStudent(self, student, position):
+        newEntry = ShortlistEntry(staff=self, student=student, position=position)
+        db.session.add(newEntry)
+        db.session.commit()
+        return newEntry

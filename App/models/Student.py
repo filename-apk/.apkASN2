@@ -11,7 +11,7 @@ class Student(User):
     year = db.Column(db.Integer, nullable=False)
     gpa = db.Column(db.Float, nullable=False)
 
-    shortlists = db.relationship('Shortlist', back_populates='student', lazy=True, cascade="all, delete-orphan")
+    shortlistings = db.relationship('ShortlistEntry', back_populates='student', lazy=True, cascade="all, delete-orphan")
 
     __mapper_args__ = {
         'polymorphic_identity': 'student',
@@ -24,3 +24,12 @@ class Student(User):
         self.degree = degree
         self.year = year
         self.gpa = gpa
+    
+    def viewShortlistedPositions(self):
+        shortlistedPositions = []
+
+        for entry in self.shortlistings:
+            position = entry.shortlistedFor
+            shortlistedPositions.append(f"ID: {position.positionID} | Title: {position.title} | Employer: {position.createdBy.name} - {position.createdBy.position} | Company: {position.createdBy.company} | Duration: {position.duration} | Stipend: {'Yes' if position.stipend else 'No'} | Amount: {position.amount if position.amount else 'N/A'} | Description: {position.description} | Status: {entry.status}")
+        return shortlistedPositions
+            

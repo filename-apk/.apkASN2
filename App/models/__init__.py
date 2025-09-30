@@ -3,4 +3,4 @@ from .Employer import *
 from .Staff import *
 from .Student import *
 from .InternPosition import *
-from .Shortlist import *
+from .ShortlistEntry import *

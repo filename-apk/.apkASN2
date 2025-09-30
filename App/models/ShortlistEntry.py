@@ -1,6 +1,6 @@
 from App.database import db
 
-class Shortlist(db.Model):
+class ShortlistEntry(db.Model):
     __tablename__ = 'shortlist'
 
     shortlistID = db.Column(db.Integer, primary_key=True)
@@ -11,7 +11,7 @@ class Shortlist(db.Model):
 
     # Bridge Relationships to Staff and Student
     staff = db.relationship('Staff', back_populates='shortlists')
-    student = db.relationship('Student', back_populates='shortlists')
+    student = db.relationship('Student', back_populates='shortlistings')
     
     # Relationship to InternPosition
     # Back-populates the 'shortlist' relationship in InternPosition

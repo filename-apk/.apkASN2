@@ -17,9 +17,9 @@ class InternPosition(db.Model):
     createdBy = db.relationship('Employer', back_populates='openPositions', lazy=True)
 
     # Relationship to Shortlist
-    shortlist = db.relationship('Shortlist', back_populates='shortlistedFor', lazy=True, cascade="all, delete-orphan")
+    shortlist = db.relationship('ShortlistEntry', back_populates='shortlistedFor', lazy=True, cascade="all, delete-orphan")
 
-    def __init__(self, employer, empID, title, duration, stipend, amount, description):
+    def __init__(self, employer, title, duration, stipend, amount, description):
         self.createdBy = employer  # Sets the relationship and FK automatically
         self.title = title
         self.duration = duration
