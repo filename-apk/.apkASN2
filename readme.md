@@ -32,7 +32,7 @@ Alternatively, edit `.vscode/settings.json`:
 }
 ```
 
-# User Creation Commands
+## 👥 User Creation Commands
 
 ```bash
 flask create-employer <username> <password>
@@ -49,7 +49,7 @@ flask create-staff <username> <password>
 ```
 - Create a staff user account
 
-# Employer Commands
+## 🧑‍💼 Employer Commands
 
 ```bash
 $ flask create-position
@@ -66,21 +66,21 @@ $ flask make-decision
 ```
 - Enables a selected employer to make a decision to approve a shortlisted student for an intern position or reject them
 
-# Staff Commands
+## 🧑‍🏫 Staff Commands
 
 ```bash
 $ flask shortlist-student
 ```
 - Enables a selected staff memeber to shortlist a chosen student for an open intern position
 
-# Student Commands
+## 🎓 Student Commands
 
 ```bash
 $ flask shortlisted-positions
 ```
 - Enables a selected student to view all the positions they have been shortlisted for as well as the decision made regarding their application (Pending, Approved, Rejected)
 
-# Database Initialization Commands
+## 🛠️ Database Initialization Commands
 
 ```bash
 $ flask init
@@ -105,40 +105,34 @@ As user commands require a simple 'login' to validate the existance of seperatel
 ```
 Employers:
 
-BillGates
-username="billygates", password="iLoveMicrosoft"
+Name            Username            Password
+BillGates       billygates          iLoveMicrosoft
 
-JeffBezos
-username="thereal_baldy", password="amazon123"
+JeffBezos       thereal_baldy       amazon123
 
-VinceMcMahon
-username="moneybagsvince", password="wwe4life"
+VinceMcMahon    moneybagsvince       wwe4life
 ```
 
 ```
 Students:
 
-Alice
-username="alice_w", password="alicepass"
+Name        Username         Password
+Alice       alice_w          alicepass
 
-Bob
-username="bob_b", password="bobpass"
+Bob         bob_b            bobpass
 
-Charlie
-username="charlie_b", password="charliepass"
+Charlie     charlie_b        charliepass
 ```
 
 ```
 Staff:
 
-ProfJohnson
-username="prof_johnson", password="johnsonpass"
+Name            Username           Password
+ProfJohnson     prof_johnson       johnsonpass
 
-DrLee
-Staff(username="dr_lee", password="leepass"
+DrLee           dr_lee             leepass
 
-Keith
-username="keith_r", password="greatistheUNC"
+Keith           keith_r             greatistheUNC
 ```
 
 ```
@@ -149,7 +143,7 @@ Position2 = InternPosition(employer=JeffBezos, title="Data Analyst Intern", dura
 Position3 = InternPosition(employer=VinceMcMahon, title="Marketing Intern", duration="3 Months", stipend=False, amount=None, description="Assist in marketing campaigns and social media management.")
 ```
 
-# Database Migrations
+## 🗃️ Database Migrations
 If changes to the models are made, the database must be'migrated' so that it can be synced with the new models.
 Then execute following commands using manage.py. More info [here](https://flask-migrate.readthedocs.io/en/latest/)
 
