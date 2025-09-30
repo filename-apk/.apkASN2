@@ -27,48 +27,84 @@ Changes can be made via ``CTRL + SHIFT + P``, followed by typing ``Select Interp
 $ pip install -r requirements.txt
 ```
 
-# Flask Commands
-
-The following are the usbale Click CLI commands for this application:
+# User Creation Commands
 
 ```bash
-flask init
+flask create-employer <username> <password>
+```
+
+```bash
+flask create-student <username> <password>
+```
+
+```bash
+flask create-staff <username> <password>
 ```
 
 # Database Initialization Commands
 
-Initialize database without data
 ```bash
 $ flask init
 ```
+Initialize database without data
 
 ```bash
 $ flask init-default
 ```
+Initialize database with a default dataset. This sets up:
 
-Initialize database with a default dataset.
+Employers: Bill Gates, Jeff Bezos, Vince McMahon
+
+Students: Alice, Bob, Charlie
+
+Staff: Prof. Johnson, Dr. Lee, Keith
+
+Three Intern Positions
 
 As user commands require a simple 'login' to validate the existance of seperately defined users, please take note of the username and password attributes of any default accounts utilized. For newly created accounts, be sure to remember those login details as it is very much needed to use the application
 
 ```
-BillGates = Employer(username="billygates", password="iLoveMicrosoft", name="Bill Gates", company="Microsoft", position="Founder")
-JeffBezos = Employer(username="thereal_baldy", password="amazon123", name="Jeff Bezos", company="Amazon", position="Founder & CEO")
-VinceMcMahon = Employer(username="moneybagsvince", password="wwe4life", name="Vince McMahon", company="WWE", position="Chairman & CEO")
+Employers:
+
+BillGates
+username="billygates", password="iLoveMicrosoft"
+
+JeffBezos
+username="thereal_baldy", password="amazon123"
+
+VinceMcMahon
+username="moneybagsvince", password="wwe4life"
 ```
 
 ```
-Alice = Student(username="alice_w", password="alicepass", name="Alice Wonderland", university="Harvard University", degree="Computer Science", year=2, gpa=3.8)
-Bob = Student(username="bob_b", password="bobpass", name="Bobby Brown", university="Stanford University", degree="Business Administration", year=3, gpa=3.5)
-Charlie = Student(username="charlie_b", password="charliepass", name="Charlie Brown", university="MIT", degree="Mechanical Engineering", year=4, gpa=3.9)
+Students:
+
+Alice
+username="alice_w", password="alicepass"
+
+Bob
+username="bob_b", password="bobpass"
+
+Charlie
+username="charlie_b", password="charliepass"
 ```
 
 ```
-ProfJohnson = Staff(username="prof_johnson", password="johnsonpass", name="Prof. Emily Johnson", faculty="Business")
-DrLee = Staff(username="dr_lee", password="leepass", name="Dr. Michael Lee", faculty="Computer Science")
-Keith = Staff(username="keith_r", password="greatistheUNC", name="Keith BaldHead RowRow", faculty="Poli-Tricks Science")
+Staff:
+
+ProfJohnson
+username="prof_johnson", password="johnsonpass"
+
+DrLee
+Staff(username="dr_lee", password="leepass"
+
+Keith
+username="keith_r", password="greatistheUNC"
 ```
 
 ```
+Intern Positions:
+
 Position1 = InternPosition(employer=BillGates, title="Software Engineering Intern", duration="3 Months", stipend=True, amount=6000.00, description="Work on cutting-edge software solutions.")
 Position2 = InternPosition(employer=JeffBezos, title="Data Analyst Intern", duration="6 Months", stipend=True, amount=7000.00, description="Analyze large datasets to drive business decisions.")
 Position3 = InternPosition(employer=VinceMcMahon, title="Marketing Intern", duration="3 Months", stipend=False, amount=None, description="Assist in marketing campaigns and social media management.")
