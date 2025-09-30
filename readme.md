@@ -137,10 +137,20 @@ Keith           keith_r             greatistheUNC
 
 ```
 Intern Positions:
+1. Software Engineering Intern
+   Employer: Bill Gates
+   Duration: 3 Months
+   Stipend: Yes ($6000)
 
-Position1 = InternPosition(employer=BillGates, title="Software Engineering Intern", duration="3 Months", stipend=True, amount=6000.00, description="Work on cutting-edge software solutions.")
-Position2 = InternPosition(employer=JeffBezos, title="Data Analyst Intern", duration="6 Months", stipend=True, amount=7000.00, description="Analyze large datasets to drive business decisions.")
-Position3 = InternPosition(employer=VinceMcMahon, title="Marketing Intern", duration="3 Months", stipend=False, amount=None, description="Assist in marketing campaigns and social media management.")
+2. Data Analyst Intern
+   Employer: Jeff Bezos
+   Duration: 6 Months
+   Stipend: Yes ($7000)
+
+3. Marketing Intern
+   Employer: Vince McMahon
+   Duration: 3 Months
+   Stipend: No
 ```
 
 ## 🗃️ Database Migrations
