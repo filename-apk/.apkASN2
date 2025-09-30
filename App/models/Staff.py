@@ -20,7 +20,6 @@ class Staff(User):
         self.name = name
         self.faculty = faculty
     
-    # More Functionality To Add
     def shortlistStudent(self, student, position):
         newEntry = ShortlistEntry(staff=self, student=student, position=position)
         db.session.add(newEntry)
