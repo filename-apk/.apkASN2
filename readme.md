@@ -1,31 +1,35 @@
 ![Tests](https://github.com/uwidcit/flaskmvc/actions/workflows/dev.yml/badge.svg)
 
-# Flask MVC Template
-A template for flask applications structured in the Model View Controller pattern [Demo](https://dcit-flaskmvc.herokuapp.com/). [Postman Collection](https://documenter.getpostman.com/view/583570/2s83zcTnEJ)
+# 🧱 Flask MVC Internship App Template
 
-# Dependencies
-* Python3/pip3
-* Packages listed in requirements.txt
+A structured Flask application following the **Model-View-Controller (MVC)** architecture. It supports **employers**, **staff**, and **students** with role-specific CLI commands and is ideal for managing internship positions and applications.
 
-The venv folder contains a virtual environment of Python 3.9.10 with all the requires packages as listed in requirements.txt preinstalled. This was necessary to do on my machine running Fedora.
+🔗 [Demo](https://dcit-flaskmvc.herokuapp.com/) | 📫 [Postman Collection](https://documenter.getpostman.com/view/583570/2s83zcTnEJ)
 
-However, for others this very well might be unecessary, so the venv folder can be deleted and be sure to adjust VS Code's selected interpreter to your machine's installation of Python 3.9.10, as the configuration files for this project points to venv for the default interpreter.
+---
 
-Changes can be made via ``CTRL + SHIFT + P``, followed by typing ``Select Interpreter`` in the search bar and choosing your installation of Python 3.9.10 when prompted. Or manually in .vscode/settings.json:
+## ⚙️ Dependencies
 
-```
+- Python 3.9.10
+- Packages listed in `requirements.txt`
+
+The `venv` folder contains a preconfigured virtual environment using Python 3.9.10 with all dependencies installed. If not required on your system, you can delete it and instead use your own interpreter.
+
+To change the Python interpreter in VS Code:
+
+- Press `CTRL + SHIFT + P`
+- Select **“Python: Select Interpreter”**
+- Choose your Python 3.9.10 installation
+
+Alternatively, edit `.vscode/settings.json`:
+
+```json
 {
-    "python.defaultInterpreterPath": "venv/bin/python",
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true,
-    "python-envs.pythonProjects": []
+  "python.defaultInterpreterPath": "venv/bin/python",
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "python-envs.pythonProjects": []
 }
-```
-
-# Installing Dependencies
-
-```bash
-$ pip install -r requirements.txt
 ```
 
 # User Creation Commands
@@ -33,73 +37,68 @@ $ pip install -r requirements.txt
 ```bash
 flask create-employer <username> <password>
 ```
-
-Create an employer user account
+- Create an employer user account
 
 ```bash
 flask create-student <username> <password>
 ```
-
-Create a student user account
+- Create a student user account
 
 ```bash
 flask create-staff <username> <password>
 ```
-
-Create a staff user account
+- Create a staff user account
 
 # Employer Commands
 
 ```bash
 $ flask create-position
 ```
-Enables and a selected employer to open an intern position
+- Enables and a selected employer to open an intern position
 
 ```bash
 $ flask review-applicants
 ```
-Enables a selected employer to see the shortlisted individuals and their decision status for all their opened positions
+- Enables a selected employer to see the shortlisted individuals and their decision status for all their opened positions
 
 ```bash
 $ flask make-decision
 ```
-Enables a selected employer to make a decision to approve a shortlisted student for the intern position or reject them
+- Enables a selected employer to make a decision to approve a shortlisted student for an intern position or reject them
 
 # Staff Commands
 
 ```bash
 $ flask shortlist-student
 ```
-Enables a selected staff memeber to shortlist a chosen student for an open intern position
+- Enables a selected staff memeber to shortlist a chosen student for an open intern position
 
 # Student Commands
 
 ```bash
 $ flask shortlisted-positions
 ```
-Enables a selected student to view all the positions they have been shortlisted for as well as the decision made regarding their application (Pending, Approved, Rejected)
+- Enables a selected student to view all the positions they have been shortlisted for as well as the decision made regarding their application (Pending, Approved, Rejected)
 
 # Database Initialization Commands
 
 ```bash
 $ flask init
 ```
-
-Initialize database without data
+- Initialize database without data
 
 ```bash
 $ flask init-default
 ```
+- Initialize database with a default dataset. This creates:
 
-Initialize database with a default dataset. This sets up:
+        Employers: Bill Gates, Jeff Bezos, Vince McMahon
 
-Employers: Bill Gates, Jeff Bezos, Vince McMahon
+        Students: Alice, Bob, Charlie
 
-Students: Alice, Bob, Charlie
+        Staff: Prof. Johnson, Dr. Lee, Keith
 
-Staff: Prof. Johnson, Dr. Lee, Keith
-
-Three Intern Positions
+        Intern Positions: 3 predefined internship
 
 As user commands require a simple 'login' to validate the existance of seperately defined users, please take note of the username and password attributes of any default accounts utilized. For newly created accounts, be sure to remember those login details as it is very much needed to use the application
 
