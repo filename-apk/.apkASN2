@@ -1,6 +1,5 @@
 from App.database import db
 from .User import User
-from .ShortlistEntry import ShortlistEntry
 
 class Staff(User):
     __tablename__ = 'staff'
@@ -19,9 +18,3 @@ class Staff(User):
         super().__init__(username, password)
         self.name = name
         self.faculty = faculty
-    
-    def shortlistStudent(self, student, position):
-        newEntry = ShortlistEntry(staff=self, student=student, position=position)
-        db.session.add(newEntry)
-        db.session.commit()
-        return newEntry

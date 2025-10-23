@@ -7,6 +7,7 @@ from App.main import create_app
 from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize )
 
 from App.models import Employer, Staff, Student, InternPosition, ShortlistEntry
+from App.controllers import StaffController, StudentController, EmployerController
 
 # This commands file allow you to create convenient CLI commands for testing controllers
 
@@ -137,7 +138,7 @@ def createInternPosition():
     
     description = click.prompt("Enter A Brief Description of The Intern Position")
 
-    newPosition = selectedEmployer.createInternPosition(title=title, duration=duration, stipend=stipend, amount=amount, description=description)
+    newPosition = EmployerController.createInternPosition(employer=selectedEmployer, title=title, duration=duration, stipend=stipend, amount=amount, description=description)
     print(f'Intern Position - {newPosition.title} (ID: {newPosition.positionID}) Created Successfully!')
 
 @app.cli.command("review-applicants", help="Review shortlisted students for open positions (Employer Only)")
@@ -167,7 +168,7 @@ def reviewApplicants():
         else:
             break
     
-    applicants_by_position = selectedEmployer.reviewApplicants()
+    applicants_by_position = EmployerController.reviewApplicants(selectedEmployer)
     if not applicants_by_position:
         print("Either No Applicants Found For Any Open Positions Or No Open Positions Found")
         return
@@ -212,7 +213,7 @@ def makeDecision():
         print("No Open Positions Found. Please Open An Intern Position First And Have Staff Shortlist Students For The Position")
         return
     
-    applicants_by_position = selectedEmployer.reviewApplicants()
+    applicants_by_position = EmployerController.reviewApplicants(selectedEmployer)
     if not applicants_by_position:
         print("No Applicants Found For Any Open Positions")
         return
@@ -228,7 +229,7 @@ def makeDecision():
     positionID = click.prompt("Enter The ID of The Intern Position To Make A Decision On", type=int)
     studentID = click.prompt("Enter The ID of The Student To Make A Decision On", type=int)
     decision = click.prompt("Enter Your Decision (Approved/Rejected)", type=click.Choice(['Approved', 'Rejected'], case_sensitive=False))
-    result = selectedEmployer.makeDecision(positionID=positionID, studentID=studentID, decision=decision)
+    result = EmployerController.makeDecision(employer=selectedEmployer, positionID=positionID, studentID=studentID, decision=decision)
     print(result)
 
 # Staff Action Commands
@@ -296,7 +297,7 @@ def shortlistStudent():
         print(f"Student {selectedStudent.name} is already shortlisted for the position {selectedPosition.title}.")
         return
     
-    selectedStaff.shortlistStudent(student=selectedStudent, position=selectedPosition)
+    StaffController.shortlistStudent(staff=selectedStaff, student=selectedStudent, position=selectedPosition)
     print(f'Student {selectedStudent.name} Has Been Shortlisted For The Position {selectedPosition.title} by Staff {selectedStaff.name}.')
 
 # Studdent Action Commands
@@ -328,7 +329,7 @@ def viewShortlistedPositions():
         else:
             break
     
-    shortlistedPositions = selectedStudent.viewShortlistedPositions()
+    shortlistedPositions = StudentController.viewShortlistedPositions(selectedStudent)
     if not shortlistedPositions:
         print("No Shortlisted Positions Found")
         return
