@@ -26,5 +26,12 @@ class User(db.Model):
         """Check hashed password."""
         return check_password_hash(self.password, password)
     
+    def get_json(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "type": self.type
+        }
+    
     def __repr__(self):
         return f" <User: {self.username} | ID: {self.id} | Type: {self.type}> "

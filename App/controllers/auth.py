@@ -1,4 +1,6 @@
-from flask_jwt_extended import create_access_token, jwt_required, JWTManager, get_jwt_identity, verify_jwt_in_request
+from flask_jwt_extended import create_access_token, current_user, jwt_required, JWTManager, get_jwt_identity, verify_jwt_in_request
+from functools import wraps
+from flask import jsonify
 
 from App.models import User
 from App.database import db
@@ -11,6 +13,27 @@ def login(username, password):
     return create_access_token(identity=str(user.id))
   return None
 
+def login_required(required_class):
+    def decorator(f):
+        @wraps(f)
+        @jwt_required()
+        def decorated_function(*args, **kwargs):
+            user = current_user
+            # Works if loaded properly as subclass
+            if isinstance(user, required_class):
+                return f(*args, **kwargs)
+            
+            # Fallback: check polymorphic identity string
+            if hasattr(user, 'type') and user.type == required_class.__mapper_args__.get('polymorphic_identity'):
+                return f(*args, **kwargs)
+
+            return jsonify({
+                'error': 'Unauthorized',
+                'message': f'User must be an instance of {required_class.__name__}'
+            }), 401
+
+        return decorated_function
+    return decorator
 
 def setup_jwt(app):
   jwt = JWTManager(app)

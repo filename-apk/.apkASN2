@@ -7,7 +7,7 @@ from App.main import create_app
 from App.controllers import ( create_user, get_all_users_json, get_all_users, initialize )
 
 from App.models import Employer, Staff, Student, InternPosition, ShortlistEntry
-from App.controllers import StaffController, StudentController, EmployerController
+from App.controllers import StaffController, StudentController, EmployerController, user
 
 # This commands file allow you to create convenient CLI commands for testing controllers
 
@@ -65,7 +65,7 @@ def createEmployer(username, password):
     name = click.prompt("Enter The Employer's Name")
     company = click.prompt("Enter Their Company's Name")
     position = click.prompt("Enter Their Position")
-    newEmployer = Employer(username=username, password=password, name=name, company=company, position=position)
+    newEmployer = user.create_employer(username=username, password=password, name=name, company=company, position=position)
     db.session.add(newEmployer)
     db.session.commit()
     print(f'Employer {username} created!')
@@ -76,7 +76,7 @@ def createEmployer(username, password):
 def createStaff(username, password):
     name = click.prompt("Enter The Staff's Name")
     faculty = click.prompt("Enter Their Faculty")
-    newStaff = Staff(username=username, password=password, name=name, faculty=faculty)
+    newStaff = user.create_staff(username=username, password=password, name=name, faculty=faculty)
     db.session.add(newStaff)
     db.session.commit()
     print(f'Staff {username} created!')
@@ -90,7 +90,7 @@ def createStudent(username, password):
     degree = click.prompt("Enter Their Degree")
     year = click.prompt("Enter Their Year of Study (i.e. First Year = 1, Second Year = 2, etc...)", type=int)
     gpa = click.prompt("Enter Their GPA", type=float)
-    newStudent = Student(username=username, password=password, name=name, university=university, degree=degree, year=year, gpa=gpa)
+    newStudent = user.create_student(username=username, password=password, name=name, university=university, degree=degree, year=year, gpa=gpa)
     db.session.add(newStudent)
     db.session.commit()
     print(f'Student {username} created!')
