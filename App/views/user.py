@@ -27,11 +27,9 @@ def register_student():
         if not all(field in data for field in required_fields):
             return jsonify({'error': 'Missing required fields'}), 400
 
-        hashed_password = generate_password_hash(str(data['password']))
-
         student = create_student(
             username=data['username'],
-            password=hashed_password,
+            password=data['password'],
             name=data['name'],
             university=data['university'],
             degree=data['degree'],
@@ -57,11 +55,9 @@ def register_employer():
         if not all(field in data for field in required_fields):
             return jsonify({'error': 'Missing required fields'}), 400
 
-        hashed_password = generate_password_hash(str(data['password']))
-
         employer = create_employer(
             username=data['username'],
-            password=hashed_password,
+            password=data['password'],
             name=data['name'],
             position=data['position'],
             company=data['company']
@@ -85,11 +81,9 @@ def register_staff():
         if not all(field in data for field in required_fields):
             return jsonify({'error': 'Missing required fields'}), 400
 
-        hashed_password = generate_password_hash(str(data['password']))
-
         staff = create_staff(
             username=data['username'],
-            password=hashed_password,
+            password=data['password'],
             name=data['name'],
             faculty=data['faculty']
         )
