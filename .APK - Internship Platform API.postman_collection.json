@@ -1,0 +1,2357 @@
+{
+	"info": {
+		"_postman_id": "34456b49-37af-4e65-be8d-5f3e18d92d74",
+		"name": ".APK - Internship Platform API",
+		"description": "API Endpoints Overview\n\n1. Create User\n   Allows the creation of a new user account. Users can be of type staff, student, or employer.\n\n2. Shortlist Students (Staff Only)\n   Enables staff members to add students to a shortlist for internship opportunities.\n\n3. View Shortlisted Entries (Student Only)\n   Allows students to view the positions or opportunities for which they have been shortlisted.\n\n4. Create Position (Employer Only)\n   Enables employers to create and post new internship positions.\n\n5. Review Shortlisted Students (Employer Only)\n   Allows employers to view and review students who have been shortlisted for their positions.\n\n6. Make Decision (Employer Only)\n   Enables employers to make final decisions (such as accept or reject) on shortlisted students for their positions.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49534760",
+		"_collection_link": "https://speeding-zodiac-935701.postman.co/workspace/XerzX's-Workspace~d2610dbc-14d6-4c38-8e91-ab80cd655e85/collection/49507998-34456b49-37af-4e65-be8d-5f3e18d92d74?action=share&source=collection_link&creator=49534760"
+	},
+	"item": [
+		{
+			"name": "No_Auth",
+			"item": [
+				{
+					"name": "User Account Creation",
+					"item": [
+						{
+							"name": "Create Student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Check that status code is 201 Created",
+											"pm.test(\"Status code is 201 (Created)\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"// Parse the response JSON",
+											"let responseData = pm.response.json();",
+											"",
+											"// Check that response has the expected message",
+											"pm.test(\"Response message is correct\", function () {",
+											"    pm.expect(responseData).to.have.property(\"message\", \"Student registered successfully\");",
+											"});",
+											"",
+											"// Check that student_id is present and is a number",
+											"pm.test(\"student_id exists and is a number\", function () {",
+											"    pm.expect(responseData).to.have.property(\"student_id\");",
+											"    pm.expect(responseData.student_id).to.be.a(\"number\");",
+											"});",
+											"",
+											"// Optionally, save the student_id for later requests",
+											"pm.environment.set(\"student_id\", responseData.student_id);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"cBrown\",\n    \"password\": \"password\",\n    \"name\": \"Charlie Brown\",\n    \"university\": \"MIT\",\n    \"degree\": \"Computer Science\",\n    \"year\": 1,\n    \"gpa\": 4.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/student",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"student"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create Student Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"cBrown\",\n    \"password\": \"password\",\n    \"name\": \"Charlie Brown\",\n    \"university\": \"MIT\",\n    \"degree\": \"Computer Science\",\n    \"year\": 1,\n    \"gpa\": 4.0\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/student",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"student"
+											]
+										}
+									},
+									"status": "CREATED",
+									"code": 201,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 15:30:08 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "71"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Student registered successfully\",\n    \"student_id\": 11\n}"
+								},
+								{
+									"name": "Create Student",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"cBrown\",\n    \"password\": \"password\",\n    \"name\": \"Charlie Brown\",\n    \"university\": \"MIT\",\n    \"degree\": \"Computer Science\",\n    \"year\": 1,\n    \"gpa\": 4.0\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/student",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"student"
+											]
+										}
+									},
+									"status": "INTERNAL SERVER ERROR",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 22:19:27 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "416"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"(sqlite3.IntegrityError) UNIQUE constraint failed: user.username\\n[SQL: INSERT INTO user (username, password, type) VALUES (?, ?, ?)]\\n[parameters: ('cBrown', 'scrypt:32768:8:1$UKHdIxPfXjsyWL8p$0e945e9c5288b0f05c5d454302990f7078cf24696fa6f607c7bd3752b1e0aa1499e1b09bf6dce7bfeb26da3f61c2023c514d2a51e0e2e5a20015ab1a39081691', 'student')]\\n(Background on this error at: https://sqlalche.me/e/20/gkpj)\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create Staff",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Ensure a response was received\r",
+											"pm.test(\"Response is not empty\", () => {\r",
+											"    pm.response.to.not.be.empty;\r",
+											"});\r",
+											"\r",
+											"// Check for 201 Created\r",
+											"pm.test(\"Status code is 201 (Created)\", () => {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"// Parse response JSON safely\r",
+											"let responseData;\r",
+											"try {\r",
+											"    responseData = pm.response.json();\r",
+											"} catch (e) {\r",
+											"    pm.test(\"Response should be valid JSON\", () => {\r",
+											"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+											"    });\r",
+											"}\r",
+											"\r",
+											"// Validate message and staff_id\r",
+											"if (responseData) {\r",
+											"    pm.test(\"Response contains success message\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"message\", \"Staff registered successfully\");\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"staff_id exists and is a number\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"staff_id\");\r",
+											"        pm.expect(responseData.staff_id).to.be.a(\"number\");\r",
+											"    });\r",
+											"\r",
+											"    // Save staff_id to environment variable for later use\r",
+											"    pm.environment.set(\"staff_id\", responseData.staff_id);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"dBrown\",\n    \"password\": \"pass123\",\n    \"name\": \"Daron Brown\",\n    \"faculty\": \"FSS\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/staff",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"staff"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create Staff Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"dBrown\",\n    \"password\": \"pass123\",\n    \"name\": \"Daron Brown\",\n    \"faculty\": \"FSS\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "/api/staff",
+											"path": [
+												"api",
+												"staff"
+											]
+										}
+									},
+									"status": "CREATED",
+									"code": 201,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 15:33:08 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "67"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Staff registered successfully\",\n    \"staff_id\": 12\n}"
+								}
+							]
+						},
+						{
+							"name": "Create Employer",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Ensure a response was received\r",
+											"pm.test(\"Response is not empty\", () => {\r",
+											"    pm.response.to.not.be.empty;\r",
+											"});\r",
+											"\r",
+											"// Check for 201 Created\r",
+											"pm.test(\"Status code is 201 (Created)\", () => {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"// Parse response JSON safely\r",
+											"let responseData;\r",
+											"try {\r",
+											"    responseData = pm.response.json();\r",
+											"} catch (e) {\r",
+											"    pm.test(\"Response should be valid JSON\", () => {\r",
+											"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+											"    });\r",
+											"}\r",
+											"\r",
+											"// Validate message and employer_id\r",
+											"if (responseData) {\r",
+											"    pm.test(\"Response contains success message\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"message\", \"Employer registered successfully\");\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"employer_id exists and is a number\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"employer_id\");\r",
+											"        pm.expect(responseData.employer_id).to.be.a(\"number\");\r",
+											"    });\r",
+											"\r",
+											"    // Save employer_id to environment variable for later use\r",
+											"    pm.environment.set(\"employer_id\", responseData.employer_id);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"mBrown\",\n    \"password\": \"passypass\",\n    \"name\": \"Monte Brown\",\n    \"position\": \"Head of Sales\",\n    \"company\": \"EvilCorpLLC\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/employer",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"employer"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create Employer Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"mBrown\",\n    \"password\": \"passypass\",\n    \"name\": \"Monte Brown\",\n    \"position\": \"Head of Sales\",\n    \"company\": \"EvilCorpLLC\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/employer",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"employer"
+											]
+										}
+									},
+									"status": "CREATED",
+									"code": 201,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 15:36:36 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "73"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"employer_id\": 13,\n    \"message\": \"Employer registered successfully\"\n}"
+								}
+							]
+						}
+					]
+				}
+			],
+			"description": "No_Auth API endpoints require no form of authentication or authorization utilizing web tokens to invoke"
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login/Logout",
+					"item": [
+						{
+							"name": "Student Login",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returned Access Token\", function (){\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(pm.response.text()).to.include(\"access_token\");\r",
+											"    pm.environment.set('student_token', jsonData['access_token']);\r",
+											"    })\r",
+											"\r",
+											"    "
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"cBrown\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Student Login Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"cBrown\",\n    \"password\": \"password\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/login",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 16:26:37 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "290"
+										},
+										{
+											"key": "Set-Cookie",
+											"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTMyMzE5NywianRpIjoiOThjNGY1NjUtNWJkNy00OGI2LTkzMjQtZmM1MzdmOWExZDdiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjExIiwibmJmIjoxNzYxMzIzMTk3LCJleHAiOjE3NjEzMjQwOTd9.HnwV490nkbMcGMXIpLxUErISBc3P-e9NI5zfrKRNl5s; Secure; HttpOnly; Path=/"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTMyMzE5NywianRpIjoiOThjNGY1NjUtNWJkNy00OGI2LTkzMjQtZmM1MzdmOWExZDdiIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjExIiwibmJmIjoxNzYxMzIzMTk3LCJleHAiOjE3NjEzMjQwOTd9.HnwV490nkbMcGMXIpLxUErISBc3P-e9NI5zfrKRNl5s\"\n}"
+								},
+								{
+									"name": "Login Fail",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"cBrown\",\n    \"password\": \"wrongpassword\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/login",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"login"
+											]
+										}
+									},
+									"status": "UNAUTHORIZED",
+									"code": 401,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 16:29:09 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "50"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"bad username or password given\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Staff Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returned Access Token\", function (){\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(pm.response.text()).to.include(\"access_token\");\r",
+											"    pm.environment.set('staff_token', jsonData['access_token']);\r",
+											"    })"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"dBrown\",\n    \"password\": \"pass123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Staff Login Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"dBrown\",\n    \"password\": \"pass123\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/login",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 16:35:40 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "290"
+										},
+										{
+											"key": "Set-Cookie",
+											"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTMyMzc0MCwianRpIjoiY2VmN2Y5ZWQtYmMwZi00OTA3LThiZDAtNDY2ZTgzNzA2NjM3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEyIiwibmJmIjoxNzYxMzIzNzQwLCJleHAiOjE3NjEzMjQ2NDB9.wfoNjBD-H1-Dunx0x3RRsc54AKQhtkdcaCrS75enAHA; Secure; HttpOnly; Path=/"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTMyMzc0MCwianRpIjoiY2VmN2Y5ZWQtYmMwZi00OTA3LThiZDAtNDY2ZTgzNzA2NjM3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEyIiwibmJmIjoxNzYxMzIzNzQwLCJleHAiOjE3NjEzMjQ2NDB9.wfoNjBD-H1-Dunx0x3RRsc54AKQhtkdcaCrS75enAHA\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Employer Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Returned Access Token\", function (){\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(pm.response.text()).to.include(\"access_token\");\r",
+											"    pm.environment.set('employer_token', jsonData['access_token']);\r",
+											"    })"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"mBrown\",\n    \"password\": \"passypass\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Employer Login Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"mBrown\",\n    \"password\": \"passypass\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/login",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 16:36:31 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "290"
+										},
+										{
+											"key": "Set-Cookie",
+											"value": "access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTMyMzc5MSwianRpIjoiYzU2NjUxZDAtZjhhMi00YTVmLWIxOTEtNDI5ODc1YTc2NGIxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEzIiwibmJmIjoxNzYxMzIzNzkxLCJleHAiOjE3NjEzMjQ2OTF9.VptYlhEI6jPeR07V34SvPnC0WCNgpgGIp9LC-aUVNj8; Secure; HttpOnly; Path=/"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MTMyMzc5MSwianRpIjoiYzU2NjUxZDAtZjhhMi00YTVmLWIxOTEtNDI5ODc1YTc2NGIxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEzIiwibmJmIjoxNzYxMzIzNzkxLCJleHAiOjE3NjEzMjQ2OTF9.VptYlhEI6jPeR07V34SvPnC0WCNgpgGIp9LC-aUVNj8\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Logout is successful\", function(){\r",
+											"    pm.response.to.have.status(200);\r",
+											"    pm.message.to.have.jsonBody(\"Logged out successfully\");\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/logout",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"logout"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Logout Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/api/logout",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"logout"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 16:44:38 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "31"
+										},
+										{
+											"key": "Set-Cookie",
+											"value": "access_token=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; HttpOnly; Path=/"
+										},
+										{
+											"key": "Set-Cookie",
+											"value": "refresh_token_cookie=; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; HttpOnly; Path=/"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Logged Out!\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Student Endpoints",
+					"item": [
+						{
+							"name": "View Shortlisted Positions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Ensure a response was received\r",
+											"pm.test(\"Response is not empty\", () => {\r",
+											"    pm.response.to.not.be.empty;\r",
+											"});\r",
+											"\r",
+											"// Check that the response status is 200 OK\r",
+											"pm.test(\"Status code is 200 (OK)\", () => {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Parse the response JSON safely\r",
+											"let responseData;\r",
+											"try {\r",
+											"    responseData = pm.response.json();\r",
+											"} catch (e) {\r",
+											"    pm.test(\"Response should be valid JSON\", () => {\r",
+											"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+											"    });\r",
+											"}\r",
+											"\r",
+											"// Validate response structure\r",
+											"if (responseData) {\r",
+											"    // Check that shortlistedCount exists and is a number\r",
+											"    pm.test(\"shortlistedCount exists and is a number\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"shortlistedCount\");\r",
+											"        pm.expect(responseData.shortlistedCount).to.be.a(\"number\");\r",
+											"    });\r",
+											"\r",
+											"    // Check that studentID exists and matches expected\r",
+											"    pm.test(\"studentID exists and is a number\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"studentID\");\r",
+											"        pm.expect(responseData.studentID).to.be.a(\"number\");\r",
+											"    });\r",
+											"\r",
+											"    // Check that shortlistedPositions exists and is an array\r",
+											"    pm.test(\"shortlistedPositions exists and is an array\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"shortlistedPositions\");\r",
+											"        pm.expect(responseData.shortlistedPositions).to.be.an(\"array\");\r",
+											"    });\r",
+											"\r",
+											"    // Optionally, check first position has required fields\r",
+											"    if (responseData.shortlistedPositions.length > 0) {\r",
+											"        const first = responseData.shortlistedPositions[0];\r",
+											"        pm.test(\"First shortlisted position has required fields\", () => {\r",
+											"            pm.expect(first).to.have.all.keys(\r",
+											"                \"amount\", \"description\", \"duration\", \"employer\", \"positionID\", \"status\", \"stipend\", \"title\"\r",
+											"            );\r",
+											"        });\r",
+											"\r",
+											"        pm.test(\"Employer object inside first position has required fields\", () => {\r",
+											"            pm.expect(first.employer).to.have.all.keys(\"company\", \"name\", \"position\");\r",
+											"        });\r",
+											"    }\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "JWT{{student_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/students/11/shortlistings",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"students",
+										"11",
+										"shortlistings"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "View Shortlisted Positions Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/api/students/11/shortlistings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"students",
+												"11",
+												"shortlistings"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 16:47:45 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1208"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"shortlistedCount\": 3,\n    \"shortlistedPositions\": [\n        {\n            \"amount\": 6000,\n            \"description\": \"Work on cutting-edge software solutions.\",\n            \"duration\": \"3 Months\",\n            \"employer\": {\n                \"company\": \"Microsoft\",\n                \"name\": \"Bill Gates\",\n                \"position\": \"Founder\"\n            },\n            \"positionID\": 1,\n            \"status\": \"Pending\",\n            \"stipend\": true,\n            \"title\": \"Software Engineering Intern\"\n        },\n        {\n            \"amount\": 7000,\n            \"description\": \"Analyze large datasets to drive business decisions.\",\n            \"duration\": \"6 Months\",\n            \"employer\": {\n                \"company\": \"Amazon\",\n                \"name\": \"Jeff Bezos\",\n                \"position\": \"Founder & CEO\"\n            },\n            \"positionID\": 2,\n            \"status\": \"Pending\",\n            \"stipend\": true,\n            \"title\": \"Data Analyst Intern\"\n        },\n        {\n            \"amount\": null,\n            \"description\": \"Assist in marketing campaigns and social media management.\",\n            \"duration\": \"3 Months\",\n            \"employer\": {\n                \"company\": \"WWE\",\n                \"name\": \"Vince McMahon\",\n                \"position\": \"Chairman & CEO\"\n            },\n            \"positionID\": 3,\n            \"status\": \"Pending\",\n            \"stipend\": false,\n            \"title\": \"Marketing Intern\"\n        }\n    ],\n    \"studentID\": 11\n}"
+								},
+								{
+									"name": "No Shortlisted Positions",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/api/students/11/shortlistings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"students",
+												"11",
+												"shortlistings"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 16:28:07 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "77"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"shortlistedCount\": 0,\n    \"shortlistedPositions\": [],\n    \"studentID\": 11\n}"
+								},
+								{
+									"name": "Unauthorized View Shortlist Attempt",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/api/students/11/shortlistings",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"students",
+												"11",
+												"shortlistings"
+											]
+										}
+									},
+									"status": "UNAUTHORIZED",
+									"code": 401,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 16:42:54 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "82"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Unauthorized\",\n    \"message\": \"User must be an instance of Student\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Staff Endpoints",
+					"item": [
+						{
+							"name": "Shortlist Student",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Ensure a response was received\r",
+											"pm.test(\"Response is not empty\", () => {\r",
+											"    pm.response.to.not.be.empty;\r",
+											"});\r",
+											"\r",
+											"// Check for 201 Created\r",
+											"pm.test(\"Status code is 201 (Created)\", () => {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"// Parse response JSON safely\r",
+											"let responseData;\r",
+											"try {\r",
+											"    responseData = pm.response.json();\r",
+											"} catch (e) {\r",
+											"    pm.test(\"Response should be valid JSON\", () => {\r",
+											"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+											"    });\r",
+											"}\r",
+											"\r",
+											"// Validate message and shortlist_entry_id\r",
+											"if (responseData) {\r",
+											"    pm.test(\"Response contains success message\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"message\", \"Student shortlisted successfully\");\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"shortlist_entry_id exists and is a number\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"shortlist_entry_id\");\r",
+											"        pm.expect(responseData.shortlist_entry_id).to.be.a(\"number\");\r",
+											"    });\r",
+											"\r",
+											"    // Save shortlist_entry_id to environment variable for later use\r",
+											"    pm.environment.set(\"shortlist_entry_id\", responseData.shortlist_entry_id);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "JWT{{staff_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"student_id\": 11,\n    \"position_id\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/staff/12/shortlist",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"staff",
+										"12",
+										"shortlist"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Shortlist Student Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"student_id\": 11,\n    \"position_id\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/staff/12/shortlist",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"staff",
+												"12",
+												"shortlist"
+											]
+										}
+									},
+									"status": "CREATED",
+									"code": 201,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 16:46:41 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "79"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Student shortlisted successfully\",\n    \"shortlist_entry_id\": 1\n}"
+								},
+								{
+									"name": "Unauthorized Shortlist Attempt",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"stuent_id\": 11,\n    \"position_id\": 1\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/staff/12/shortlist",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"staff",
+												"12",
+												"shortlist"
+											]
+										}
+									},
+									"status": "UNAUTHORIZED",
+									"code": 401,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 16:42:09 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "80"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Unauthorized\",\n    \"message\": \"User must be an instance of Staff\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Employer Endpoints",
+					"item": [
+						{
+							"name": "Create Intern Position",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Ensure a response was received\r",
+											"pm.test(\"Response is not empty\", () => {\r",
+											"    pm.response.to.not.be.empty;\r",
+											"});\r",
+											"\r",
+											"// Check for 201 Created\r",
+											"pm.test(\"Status code is 201 (Created)\", () => {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"// Parse response JSON safely\r",
+											"let responseData;\r",
+											"try {\r",
+											"    responseData = pm.response.json();\r",
+											"} catch (e) {\r",
+											"    pm.test(\"Response should be valid JSON\", () => {\r",
+											"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+											"    });\r",
+											"}\r",
+											"\r",
+											"// Validate message and position_id\r",
+											"if (responseData) {\r",
+											"    pm.test(\"Response contains success message\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"message\", \"Intern position created successfully\");\r",
+											"    });\r",
+											"\r",
+											"    pm.test(\"position_id exists and is a number\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"position_id\");\r",
+											"        pm.expect(responseData.position_id).to.be.a(\"number\");\r",
+											"    });\r",
+											"\r",
+											"    // Save position_id to environment variable for later use\r",
+											"    pm.environment.set(\"position_id\", responseData.position_id);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "JWT{{employer_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"BussinBurgers\",\n    \"duration\": \"1 year\",\n    \"stipend\": true,\n    \"amount\": 5000,\n    \"description\": \"Create modern webapps to enhance the business' online presence\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/employers/13/intern_positions",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"employers",
+										"13",
+										"intern_positions"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Create Intern Position Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"title\": \"BussinBurgers\",\n    \"duration\": \"1 year\",\n    \"stipend\": true,\n    \"amount\": 5000,\n    \"description\": \"Create modern webapps to enhance the business' online presence\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/employers/13/intern_positions",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"employers",
+												"13",
+												"intern_positions"
+											]
+										}
+									},
+									"status": "CREATED",
+									"code": 201,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 17:01:07 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "76"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Intern position created successfully\",\n    \"position_id\": 4\n}"
+								},
+								{
+									"name": "Unauthorized Create Position Attempt",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"title\": \"BussinBurgers\",\n    \"duration\": \"1 year\",\n    \"stipend\": true,\n    \"amount\": 5000,\n    \"description\": \"Create modern webapps to enhance the business' online presence\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/employers/13/intern_positions",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"employers",
+												"13",
+												"intern_positions"
+											]
+										}
+									},
+									"status": "UNAUTHORIZED",
+									"code": 401,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 17:05:08 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "83"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Unauthorized\",\n    \"message\": \"User must be an instance of Employer\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Review Applicants",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/api/employers/13/review_applicants",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"employers",
+										"13",
+										"review_applicants"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Review Applicants Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/api/employers/13/review_applicants",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"employers",
+												"13",
+												"review_applicants"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 17:03:41 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "306"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"BussinBurgers (ID: 4)\": [\n        \"(Status: Pending) | ID: 11 | Charlie Brown | University: MIT | Degree: Computer Science | Year Of Study: 1 | GPA: 4.0\",\n        \"(Status: Pending) | ID: 6 | Bobby Brown | University: Stanford University | Degree: Business Administration | Year Of Study: 3 | GPA: 3.5\"\n    ]\n}"
+								},
+								{
+									"name": "No Applicants",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/api/employers/13/review_applicants",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"employers",
+												"13",
+												"review_applicants"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 17:02:14 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "34"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"BussinBurgers (ID: 4)\": []\n}"
+								},
+								{
+									"name": "Unauthorized Review Applicants Attempt",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{host}}/api/employers/13/review_applicants",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"employers",
+												"13",
+												"review_applicants"
+											]
+										}
+									},
+									"status": "UNAUTHORIZED",
+									"code": 401,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 17:06:03 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "83"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Unauthorized\",\n    \"message\": \"User must be an instance of Employer\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Make Decision",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Ensure a response was received\r",
+											"pm.test(\"Response is not empty\", () => {\r",
+											"    pm.response.to.not.be.empty;\r",
+											"});\r",
+											"\r",
+											"// Check for 200 OK\r",
+											"pm.test(\"Status code is 200 (OK)\", () => {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Parse response JSON safely\r",
+											"let responseData;\r",
+											"try {\r",
+											"    responseData = pm.response.json();\r",
+											"} catch (e) {\r",
+											"    pm.test(\"Response should be valid JSON\", () => {\r",
+											"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+											"    });\r",
+											"}\r",
+											"\r",
+											"// Validate message\r",
+											"if (responseData) {\r",
+											"    pm.test(\"Response contains success message\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"message\", \"Decision Updated Successfully\");\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "JWT{{employer_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"positionID\": 4,\n    \"studentID\": 11,\n    \"decision\": \"Approved\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/employers/13/make_decision",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"employers",
+										"13",
+										"make_decision"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Make Decision Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"positionID\": 4,\n    \"studentID\": 11,\n    \"decision\": \"Approved\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/employers/13/make_decision",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"employers",
+												"13",
+												"make_decision"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 17:11:48 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "49"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Decision Updated Successfully\"\n}"
+								},
+								{
+									"name": "Make Decision Fail",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"positionID\": 4,\n    \"studentID\": 7,\n    \"decision\": \"Approved\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/employers/13/make_decision",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"employers",
+												"13",
+												"make_decision"
+											]
+										}
+									},
+									"status": "BAD REQUEST",
+									"code": 400,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 17:12:41 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "43"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Shortlist Entry Not Found\"\n}"
+								},
+								{
+									"name": "Make Decision Fail",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"positionID\": 6,\n    \"studentID\": 11,\n    \"decision\": \"Approved\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/employers/13/make_decision",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"employers",
+												"13",
+												"make_decision"
+											]
+										}
+									},
+									"status": "BAD REQUEST",
+									"code": 400,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 17:13:04 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "36"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Position Not Found\"\n}"
+								},
+								{
+									"name": "Unauthorized Make Decision Attempt",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"positionID\": 4,\n    \"studentID\": 11,\n    \"decision\": \"Approved\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/employers/13/make_decision",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"employers",
+												"13",
+												"make_decision"
+											]
+										}
+									},
+									"status": "UNAUTHORIZED",
+									"code": 401,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 17:14:36 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "83"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Unauthorized\",\n    \"message\": \"User must be an instance of Employer\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Common Fails",
+					"item": [
+						{
+							"name": "Fail Demonstration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Ensure a response was received\r",
+											"pm.test(\"Response is not empty\", () => {\r",
+											"    pm.response.to.not.be.empty;\r",
+											"});\r",
+											"\r",
+											"// Check that the response status is 400 Bad Request\r",
+											"pm.test(\"Status code is 400 (Bad Request)\", () => {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"// Parse response JSON safely\r",
+											"let responseData;\r",
+											"try {\r",
+											"    responseData = pm.response.json();\r",
+											"} catch (e) {\r",
+											"    pm.test(\"Response should be valid JSON\", () => {\r",
+											"        throw new Error(\"Response is not valid JSON: \" + e.message);\r",
+											"    });\r",
+											"}\r",
+											"\r",
+											"// Validate that the error message exists\r",
+											"if (responseData) {\r",
+											"    pm.test(\"Response contains error message for missing fields\", () => {\r",
+											"        pm.expect(responseData).to.have.property(\"error\", \"Missing required fields\");\r",
+											"    });\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"BussinBurgers\",\n    \"duration\": \"1 year\",\n    \"stipend\": true,\n    \"amount\": 5000,\n    \"description\": \"Create modern webapps to enhance the business' online presence\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api/employers/13/intern_positions",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"employers",
+										"13",
+										"intern_positions"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Missing Fields Fail",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"title\": \"BussinBurgers\",\n    \"duration\": \"1 year\",\n    \"stipend\": true,\n    \"amount\": 5000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/employers/13/intern_positions",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"employers",
+												"13",
+												"intern_positions"
+											]
+										}
+									},
+									"status": "BAD REQUEST",
+									"code": 400,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 17:32:17 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "41"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Missing required fields\"\n}"
+								},
+								{
+									"name": "User Does Not Exist Fail",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"title\": \"BussinBurgers\",\n    \"duration\": \"1 year\",\n    \"stipend\": true,\n    \"amount\": 5000,\n    \"description\": \"Create modern webapps to enhance the business' online presence\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/api/employers/21/intern_positions",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"api",
+												"employers",
+												"21",
+												"intern_positions"
+											]
+										}
+									},
+									"status": "NOT FOUND",
+									"code": 404,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Server",
+											"value": "Werkzeug/3.1.3 Python/3.9.10"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 24 Oct 2025 17:32:44 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										},
+										{
+											"key": "Content-Length",
+											"value": "36"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Connection",
+											"value": "close"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Employer not found\"\n}"
+								}
+							]
+						}
+					]
+				}
+			],
+			"description": "Auth API endpoints require authentication and account type specific authorization to invoke."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
