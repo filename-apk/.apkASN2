@@ -47,7 +47,9 @@ class UserUnitTests(unittest.TestCase):
 
 class ApplicationUnitTests(unittest.TestCase):
 
-
+    def setup(self):
+          sally = Employer(username="sally", password="sallypass", company_name="TechCorp", position = "IT ")
+          bob = Staff(username="bob", password="bobpass", staff_id="S123")
     # --- Test: Create Intern Position ---
     def test_createInternPosition(self):
         """Test creating an internship position."""
@@ -196,7 +198,7 @@ class UsersIntegrationTests(unittest.TestCase):
       
  
 class ApplicationIntegrationTests(unittest.TestCase):
-    def test_staff_shortlistStudent():
+    def test_staff_shortlistStudent(self):
         bob = get_staff(1); 
         rick = get_student(2);
         sally = get_employer(3); 
@@ -204,13 +206,13 @@ class ApplicationIntegrationTests(unittest.TestCase):
         bob.shortlistStudent(bob, position.positionID, rick.studentID)
         assert rick.studentID in [entry.studentID for entry in position.shortlistEntries]
     
-    def test_employer_createInternPosition():
+    def test_employer_createInternPosition(self):
         sally = get_employer(3);  
         position = sally.createInternPosition( "Software Intern", "3 months", "6000", 5, "Great internship")
 
         assert position in sally.internPositions, f"Position{position.title} not found in employer's intern positions"
 
-    def test_employer_reviewApplication():
+    def test_employer_reviewApplication(self):
         sally = get_employer(3);  
         rick = get_student(2);
         bob = get_staff(1);
@@ -220,7 +222,7 @@ class ApplicationIntegrationTests(unittest.TestCase):
         sally.reviewApplication(sally);
         assert shortlistEntry.studentID == rick.studentID;
 
-    def test_employer_makeDecision():
+    def test_employer_makeDecision(self):
         sally = get_employer(3);  
         rick = get_student(2);
         bob = get_staff(1);
@@ -231,9 +233,9 @@ class ApplicationIntegrationTests(unittest.TestCase):
         assert shortlistEntry.status == "Approved";
 
 
-    def test_student_viewShortlistStatus():
+    def test_student_viewShortlistStatus(self):
         rick = get_student(2);
-        status = rick.viewShortlistStatus(rick);
+        status = rick.viewShortlistedPositions(rick);
         assert isinstance(status,str);
 
 
