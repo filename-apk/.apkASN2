@@ -35,7 +35,7 @@ class UserUnitTests(unittest.TestCase):
     
     def test_hashed_password(self):
         password = "mypass"
-        hashed = generate_password_hash(password, method='pbkdf2:sha256')
+        hashed = generate_password_hash(password, method='pdkdf2')
         user = User("bob", password)
         assert user.password != password
 
@@ -47,10 +47,10 @@ class UserUnitTests(unittest.TestCase):
 
 class ApplicationUnitTests(unittest.TestCase):
     def test_createInternPosition(self):
-        employer = Employer("sally", "sallypass", "Sally Corp")
-        position = employer.createInternPosition("Software Intern", "3 months", "1000 USD", 5, "Great internship")
-        assert position.title == "Software Intern"
-PY
+        position = self.sally.createInternPosition("Software Intern", "3 months", "1000 USD", 5, "Great internship")
+        self.sally = get_employer(3);
+        assert position in self.sally.internPositions, f"Position{position.title} not found in employer's intern positions"
+
 
 '''
     Integration Tests
@@ -93,7 +93,7 @@ class UsersIntegrationTests(unittest.TestCase):
 
     def test_get_all_users_json(self):
         users_json = get_all_users_json()
-        self.assertListEqual([{"id":1, "username":"bob", "type":"user"}, {"id":2, "username":"rick", "type":"user"}], users_json)
+        self.assertListEqual([{"id":1, "username":"bob", "type": "user"}, {"id":2, "username":"rick","type":"user"}], users_json)
 
     # Tests data changes in the database
     def test_update_user(self):
@@ -107,14 +107,15 @@ class ApplicationIntegrationTests(unittest.TestCase):
         bob = get_staff(1); 
         rick = get_student(2);
         sally = get_employer(3); 
-        position = sally.createInternPosition("Software Intern", "3 months", "1000 USD", 5, "Great internship")
+        position = sally.createInternPosition("Software Intern", "3 months", "6000", 5, "Great internship")
         bob.shortlistStudent(bob, position.positionID, rick.studentID)
         assert rick.studentID in [entry.studentID for entry in position.shortlistEntries]
     
     def test_employer_createInternPosition():
         sally = get_employer(3);  
-        position = createInternPosition( sally, "Software Intern", "3 months", "1000 USD", 5, "Great internship")
-        assert position in sally.internPositions
+        position = sally.createInternPosition( "Software Intern", "3 months", "6000", 5, "Great internship")
+
+        assert position in sally.internPositions, f"Position{position.title} not found in employer's intern positions"
 
     def test_employer_reviewApplication():
         sally = get_employer(3);  
