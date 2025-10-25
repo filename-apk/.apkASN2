@@ -3,7 +3,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from App.main import create_app
 from App.database import db, create_db
-from App.models import User, Staff, Employer, Student
+from App.models import User, Staff, Employer, Student, InternPosition, ShortlistEntry
 from App.controllers import (
     create_user,
     get_all_users_json,
@@ -46,10 +46,103 @@ class UserUnitTests(unittest.TestCase):
 
 
 class ApplicationUnitTests(unittest.TestCase):
+
+
+    # --- Test: Create Intern Position ---
     def test_createInternPosition(self):
-        position = self.sally.createInternPosition("Software Intern", "3 months", "1000 USD", 5, "Great internship")
-        self.sally = get_employer(3);
-        assert position in self.sally.internPositions, f"Position{position.title} not found in employer's intern positions"
+        """Test creating an internship position."""
+        position = self.sally.createInternPosition(
+            "Software Intern", "3 months", "1000 USD", 5, "Great internship"
+        )
+        db.session.add(position)
+        db.session.commit()
+
+        openPosition = InternPosition.query.first()
+        self.assertIsNotNone(openPosition)
+        self.assertEqual(openPosition.title, "Software Intern")
+        self.assertEqual(openPosition.duration, "3 months")
+        self.assertEqual(openPosition.amount, "1000 USD")
+        self.assertEqual(openPosition.description, "Great internship")
+
+    # --- Test: Review Applicants ---
+    def test_reviewApplicants(self):
+        """Test reviewing applicants for a position."""
+        position = self.sally.createInternPosition("Backend Intern", "4 months", "2000 USD", 3, "Work on APIs")
+        db.session.add(position)
+        db.session.commit()
+
+        shortlist = self.bob.shortlistStudent(position.id)
+        db.session.add(shortlist)
+        db.session.commit()
+
+        applicants = self.sally.reviewApplicants(position.id)
+        self.assertTrue(len(applicants) > 0)
+        self.assertEqual(applicants[0].student_id, self.bob.id)
+
+    # --- Test: Make Decision ---
+    def test_makeDecision(self):
+        """Test making an approval decision on an applicant."""
+        position = self.sally.createInternPosition("UI Designer", "3 months", "1500 USD", 2, "Design UIs")
+        db.session.add(position)
+        db.session.commit()
+
+        shortlist = self.bob.shortlistStudent(position.id)
+        db.session.add(shortlist)
+        db.session.commit()
+
+        result = self.sally.makeDecision(position.id, self.bob.id, True)
+        db.session.commit()
+
+        updated = ShortlistEntry.query.filter_by(position_id=position.id, student_id=self.bob.id).first()
+        self.assertTrue(updated.status)
+        self.assertEqual(result, "Decision Updated Successfully")
+
+    # --- Test: Shortlist Student ---
+    def test_shortlistStudent(self):
+        """Test that a student can be shortlisted."""
+        position = self.sally.createInternPosition("Data Analyst", "3 months", "2000 USD", 4, "Analyse data")
+        db.session.add(position)
+        db.session.commit()
+
+        shortlist = self.bob.shortlistStudent(position.id)
+        db.session.add(shortlist)
+        db.session.commit()
+
+        self.assertIsNotNone(shortlist)
+        self.assertEqual(shortlist.student_id, self.bob.id)
+        self.assertEqual(shortlist.position_id, position.id)
+
+    # --- Test: View Shortlisted Positions ---
+    def test_viewShortlistedPositions(self):
+        """Test viewing all positions a student is shortlisted for."""
+        pos1 = self.sally.createInternPosition("Backend", "6 months", "2500 USD", 5, "Server dev")
+        pos2 = self.sally.createInternPosition("Frontend", "6 months", "2300 USD", 4, "UI dev")
+        db.session.add_all([pos1, pos2])
+        db.session.commit()
+
+        shortlist1 = self.bob.shortlistStudent(pos1.id)
+        shortlist2 = self.bob.shortlistStudent(pos2.id)
+        db.session.add_all([shortlist1, shortlist2])
+        db.session.commit()
+
+        results = self.bob.viewShortlistedPositions()
+        self.assertEqual(len(results), 2)
+        self.assertEqual(results[0].position_id, pos1.id)
+        self.assertEqual(results[1].position_id, pos2.id)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 '''
