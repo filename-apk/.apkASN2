@@ -45,7 +45,12 @@ class UserUnitTests(unittest.TestCase):
         assert user.check_password(password)
 
 
-    
+class ApplicationUnitTests(unittest.TestCase):
+    def test_createInternPosition(self):
+        employer = Employer("sally", "sallypass", "Sally Corp")
+        position = employer.createInternPosition("Software Intern", "3 months", "1000 USD", 5, "Great internship")
+        assert position.title == "Software Intern"
+PY
 
 '''
     Integration Tests
@@ -108,7 +113,7 @@ class ApplicationIntegrationTests(unittest.TestCase):
     
     def test_employer_createInternPosition():
         sally = get_employer(3);  
-        position = sally.createInternPosition( "Software Intern", "3 months", "1000 USD", 5, "Great internship")
+        position = createInternPosition( sally, "Software Intern", "3 months", "1000 USD", 5, "Great internship")
         assert position in sally.internPositions
 
     def test_employer_reviewApplication():
